@@ -1,0 +1,22 @@
+{
+    "$schema": "./schema.json",
+
+    "##comment_": "ONLY ONE of channel, category or webhook",
+    "channel_": "461237484372837492",
+    "category_": {
+        "id": "11111111111111111111",
+        "format": "##this is optional"
+    },
+    "webhook": "https://discord.com/api/webhooks/11111111111111111/regexp",
+
+    "children": {
+        "litarin1": {
+            "##comment_": "ONLY ONE of channel, category or webhook",
+            "channel": "461237484372837492"
+        },
+        "litarin1/discord-gh-webhooks-bot": {
+            "##comment_": "ONLY ONE of channel, category or webhook",
+            "webhook": "https://discord.com/api/webhooks/11111111111111111/a"
+        }
+    }
+}

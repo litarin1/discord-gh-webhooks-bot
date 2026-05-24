@@ -1,0 +1,80 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "title": "RoutesConfig",
+    "type": "object",
+
+    "allOf": [
+        {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9._-]{1,39}(\/[a-zA-Z0-9._-]{1,100})?$": {
+                            "oneOf": [
+                                { "$ref": "#/definitions/prop_channel" },
+                                { "$ref": "#/definitions/prop_category" },
+                                { "$ref": "#/definitions/prop_webhook" }
+                            ]
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            }
+        },
+        {
+            "oneOf": [
+                { "$ref": "#/definitions/prop_channel" },
+                { "$ref": "#/definitions/prop_category" },
+                { "$ref": "#/definitions/prop_webhook" }
+            ]
+        }
+    ],
+    "definitions": {
+        "id": {
+            "type": "string",
+            "pattern": "^\\d{17,20}$"
+        },
+        "channel": {
+            "$ref": "#/definitions/id"
+        },
+        "category": {
+            "type": "object",
+            "required": ["id"],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/id"
+                },
+                "format": {
+                    "type": "string"
+                }
+            }
+        },
+        "webhook": {
+            "type": "string",
+            "pattern": "^https:\\/\\/discord\\.com\\/api\\/webhooks\\/\\d{17,20}\\/[a-zA-Z0-9._-]+$"
+        },
+
+        "prop_channel": {
+            "type": "object",
+            "required": ["channel"],
+            "properties": {
+                "channel": { "$ref": "#/definitions/channel" }
+            }
+        },
+        "prop_category": {
+            "type": "object",
+            "required": ["category"],
+            "properties": {
+                "category": { "$ref": "#/definitions/category" }
+            }
+        },
+        "prop_webhook": {
+            "type": "object",
+            "required": ["webhook"],
+            "properties": {
+                "webhook": { "$ref": "#/definitions/webhook" }
+            }
+        }
+    }
+}
